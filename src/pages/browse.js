@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import Navbar, {NavIcon} from '../components/navbar';
 import { useNavigate } from "react-router-dom";
-// import {SearchInput} from '../components/inputs'
-// import {devLocations} from '../static/dev'
 import {tryGetNearbyMonuments} from '../middleware/monuments';
 import {setRecognizedMonument} from '../store/monuments';
 import {EnvironmentFilled} from '@ant-design/icons';
@@ -42,15 +40,6 @@ const Browse = ({tryGetNearbyMonuments, setRecognizedMonument}) => {
             <Navbar></Navbar>
             <h2 style={{padding: '0px 20px'}}>Near me</h2>
             <br />
-            {/* <div style={{padding: '5px 20px'}}>
-                <SearchInput
-                    searchOptions={devLocations}
-                    id={'search-items'}
-                    value={""}
-                    placeholder={"Search..."}
-                    onSelect={() => {}}
-                />
-            </div> */}
             {nearbyMonuments.map((m, i) => {
                 const bcolor = backgroundColorPicker(i)
                 const button = backgroundColorPicker(i + 1)
@@ -58,7 +47,6 @@ const Browse = ({tryGetNearbyMonuments, setRecognizedMonument}) => {
                 if (bcolor === "#000") {
                     fontcolor = "#fff"
                 }
-
                 return(
                     <div key={i}>
                         <div style={{display: 'flex', backgroundColor: bcolor, padding: '15px', color: fontcolor, justifyContent: 'space-between'}}>
@@ -68,10 +56,9 @@ const Browse = ({tryGetNearbyMonuments, setRecognizedMonument}) => {
                                 <h4>{m.name}</h4>
                                 <br />
                                 <p><EnvironmentFilled />&nbsp;{m.location}</p>
-                                <br />
-                                
+                                <br />  
                             </div>
-                            <NavIcon style={{backgroundColor: button, width: '30%', borderRadius: '30px', alignSelf: "flex-end"}}
+                            <NavIcon style={{backgroundColor: button, width: '30%', borderRadius: '30px', alignSelf: "flex-end", width: '100px'}}
                                 onClick={() => {setRecognizedMonument(m);history('/learn')}}
                             >
                                 View

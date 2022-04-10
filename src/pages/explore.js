@@ -42,8 +42,11 @@ const Explore = ({ tryRecognizeMonument, setRecognizedMonument }) => {
     return(
         <div>
             <Navbar></Navbar>
+            <div style={{padding: '0px 20px'}}>
+                <h2>Explore your surroundings</h2>
+            </div>
             <div style={{borderRadius: '20px', margin: '10px'}}>
-                <Camera ref={camera} aspectRatio={3/4} facingMode={cameras > 1 ? "environment" : "user"}/>
+                <Camera ref={camera} aspectRatio={3.5/4} facingMode={cameras > 1 ? "environment" : "user"}/>
             </div>
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 {cameras > 1 &&

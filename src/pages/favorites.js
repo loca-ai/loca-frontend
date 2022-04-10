@@ -4,6 +4,7 @@ import Navbar from '../components/navbar';
 import {tryGetRecentTrips} from '../middleware/monuments';
 import {setRecognizedMonument} from '../store/monuments'
 import {Link} from 'react-router-dom';
+import { StarOutlined } from '@ant-design/icons';
 
 class Favorites extends React.Component {
     state = {trips: []}
@@ -25,17 +26,22 @@ class Favorites extends React.Component {
                     <h2>Your recent trips</h2>
                     <br />
                     {this.state.trips.map((t, i) => (
-                        <div key={i}>
-                            <h3 style={{padding: '0px 20px'}}>{t.city}</h3>
+                        <>
+                            <div key={i} style={{backgroundColor: '#F3F4F5', padding: '15px', borderRadius: '20px'}}>
+                                <h3>{t.city}</h3>
+                                <br />
+                                {t.monuments.map((m, mi) => (
+                                    <div key={mi} onClick={() => this.props.setRecognizedMonument(m)}>
+                                        <div style={{display: 'flex', justifyContent: 'space-between', color: '#F75940', alignItems: 'center'}}>
+                                            <><Link to={"/learn"} style={{padding: '10px 0px', color: '#F75940'}}>{m.name}</Link></>
+                                            <StarOutlined />
+                                        </div>
+                                        <br />
+                                    </div>
+                                ))}
+                            </div>
                             <br />
-                            {t.monuments.map((m, mi) => (
-                                <div key={mi} onClick={() => this.props.setRecognizedMonument(m)}>
-                                    <Link to={"/learn"} style={{padding: '10px 20px', color: '#F75940'}}>{m.name}</Link>
-                                    <br />
-                                    <br />
-                                </div>
-                            ))}
-                        </div>
+                        </>
                     ))}
                 </div>
             </div>

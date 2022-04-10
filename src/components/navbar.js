@@ -16,12 +16,13 @@ export const NavIcon = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 20px;
 `;
 
 const Navbar = ({user}) => {
     let history = useNavigate();
     return (
-        <div style={{padding: '10px', display: 'flex', width: 'calc(100% - 20px)', justifyContent: 'space-between'}}>
+        <div style={{padding: '10px', paddingBottom: '20px', display: 'flex', width: 'calc(100% - 20px)', justifyContent: 'space-between'}}>
             <NavIcon style={{borderRadius: '30px', width: '30%'}} onClick={() => {return history('/explore')}}>
                 <CameraFilled />&nbsp;Explore
             </NavIcon>

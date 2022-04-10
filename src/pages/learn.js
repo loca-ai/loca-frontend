@@ -3,25 +3,6 @@ import Navbar from '../components/navbar';
 import { connect } from 'react-redux';
 import { StarOutlined } from '@ant-design/icons';
 
-// export const InfoBox = styled.div`
-//     background-color: #F3F4F5;
-//     z-index: 5;
-//     border-radius: 20px 20px 0px 0px;
-//     padding: 20px;
-//     position: absolute;
-//     top: ${props => props.photoUp ? '50%' : '85%'};
-//     animation: '1s ${props => props.photoUp ? 'moveUp' : 'moveDown'}'
-
-//     @keyframes moveUp {
-// 		from { top: 85%; }
-// 		to { top: 50%; }
-// 	}
-//     @keyframes moveUp {
-// 		from { top: 50%; }
-// 		to { top: 85%; }
-// 	}
-// `;
-
 const Learn = ({ monument }) => {
     const [photoUp, setPhotoUp] = useState(true)
 
@@ -44,7 +25,7 @@ const Learn = ({ monument }) => {
             }}
             onClick={() => {setPhotoUp(!photoUp)}}
             >
-                <div style={{height: '3px', borderRadius: '20px', backgroundColor: 'gray', width: '50%', margin: '1px auto'}}></div>
+                <div style={{height: '3px', borderRadius: '20px', backgroundColor: '#C4C4C4', width: '50%', margin: '1px auto'}}></div>
                 <br />
                 <div style={{display: "flex", justifyContent: 'space-between'}}>
                     <h2>{monument.get("name")}</h2>

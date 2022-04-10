@@ -62,7 +62,9 @@ class CreateAccount extends React.Component {
             <>
                 <br />
                 <h1 style={{textAlign: 'center', color: "#F75940", margin: '20px', fontSize: '50px'}}>LOCA</h1>
-                <br />
+                <div style={{textAlign: 'center'}}>
+                    <img src="https://res.cloudinary.com/dou0q4ekk/image/upload/v1649569057/loca_uoddxs.svg" width='30%'/>
+                </div>
                 <br />
                 <div style={{width: '80%', margin: 'auto'}}>
                     <TextInput
