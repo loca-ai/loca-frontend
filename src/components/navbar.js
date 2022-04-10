@@ -19,6 +19,12 @@ export const NavIcon = styled.div`
     font-size: 20px;
 `;
 
+export const PageFit = styled.div`
+    @media screen and (min-width: 860px) {
+        margin: 10px 20%;
+    }
+`;
+
 const Navbar = ({user}) => {
     let history = useNavigate();
     return (

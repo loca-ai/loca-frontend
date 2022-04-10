@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import Navbar from '../components/navbar';
+import Navbar, {PageFit} from '../components/navbar';
 import {tryGetRecentTrips} from '../middleware/monuments';
 import {setRecognizedMonument} from '../store/monuments'
 import {Link} from 'react-router-dom';
@@ -20,7 +20,7 @@ class Favorites extends React.Component {
 
     render() {
         return(
-            <div>
+            <PageFit>
                 <Navbar></Navbar>
                 <div style={{padding: '0px 20px'}}>
                     <h2>Your recent trips</h2>
@@ -44,7 +44,7 @@ class Favorites extends React.Component {
                         </>
                     ))}
                 </div>
-            </div>
+            </PageFit>
         )
     }
 }

@@ -1,7 +1,7 @@
 import { CameraFilled, ReloadOutlined } from '@ant-design/icons';
 import React, { useEffect, useRef, useState } from 'react'
 import { connect } from 'react-redux';
-import Navbar, {NavIcon} from '../components/navbar';
+import Navbar, {NavIcon, PageFit} from '../components/navbar';
 import {Camera} from "react-camera-pro";
 import { useNavigate } from "react-router-dom";
 import {setRecognizedMonument} from '../store/monuments';
@@ -40,7 +40,7 @@ const Explore = ({ tryRecognizeMonument, setRecognizedMonument }) => {
     }, [image, history, tryRecognizeMonument, setRecognizedMonument]);
 
     return(
-        <div>
+        <PageFit>
             <Navbar></Navbar>
             <div style={{padding: '0px 20px'}}>
                 <h2>Explore your surroundings</h2>
@@ -62,7 +62,7 @@ const Explore = ({ tryRecognizeMonument, setRecognizedMonument }) => {
                     <CameraFilled/>&nbsp;Capture
                 </NavIcon>
             </div>
-        </div>
+        </PageFit>
     )
 }
 

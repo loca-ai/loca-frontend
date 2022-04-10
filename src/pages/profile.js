@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Navbar, {NavIcon} from '../components/navbar';
+import Navbar, {NavIcon, PageFit} from '../components/navbar';
 import {Navigate} from 'react-router-dom';
 import {setStoreReset} from '../store/user';
 
@@ -14,7 +14,7 @@ class Profile extends React.Component {
 
     render() {
         return(
-            <div>
+            <PageFit>
                 <Navbar></Navbar>
                 <div style={{padding: '0px 20px'}}>
                     <h2>About You</h2>
@@ -48,7 +48,7 @@ class Profile extends React.Component {
                         <img src="https://res.cloudinary.com/dou0q4ekk/image/upload/v1649569057/loca_uoddxs.svg" width='30%'/>
                     </div>
                 </div>
-            </div>
+            </PageFit>
         )
     }
 }

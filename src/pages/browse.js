@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
-import Navbar, {NavIcon} from '../components/navbar';
+import Navbar, {NavIcon, PageFit} from '../components/navbar';
 import { useNavigate } from "react-router-dom";
 import {tryGetNearbyMonuments} from '../middleware/monuments';
 import {setRecognizedMonument} from '../store/monuments';
@@ -36,7 +36,7 @@ const Browse = ({tryGetNearbyMonuments, setRecognizedMonument}) => {
     }, []);
 
     return(
-        <div>
+        <PageFit>
             <Navbar></Navbar>
             <h2 style={{padding: '0px 20px'}}>Near me</h2>
             <br />
@@ -68,7 +68,7 @@ const Browse = ({tryGetNearbyMonuments, setRecognizedMonument}) => {
                     </div>
                 )
             })}
-        </div>
+        </PageFit>
     )
 }
 

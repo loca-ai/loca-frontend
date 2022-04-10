@@ -1,27 +1,44 @@
 import React, {useState} from 'react'
-import Navbar from '../components/navbar';
+import Navbar, {PageFit} from '../components/navbar';
 import { connect } from 'react-redux';
 import { StarOutlined } from '@ant-design/icons';
+
+import styled from 'styled-components'
+
+const InfoBox = styled.div`
+    background-color: #F3F4F5;
+    z-index: 5;
+    border-radius: 20px 20px 0px 0px;
+    padding: 20px;
+    position: absolute;
+    width: calc(100% - 40px);
+
+    @media screen and (min-width: 860px) {
+        width: calc(60% - 40px);
+    }
+
+    bottom: 0;
+    overflow: auto;
+`;
+
+const ImageBox = styled.img`
+    width: 100%;
+    @media screen and (min-width: 860px) {
+        width: 60%;
+    }
+`;
 
 const Learn = ({ monument }) => {
     const [photoUp, setPhotoUp] = useState(true)
 
     return(
-        <div>
+        <PageFit>
             <Navbar></Navbar>
-            <div>
-                <img src={monument.get("img")} width="100%" alt={monument.get("name")}/>
+            <div style={{textAlign: 'center'}}>
+                <ImageBox src={monument.get("img")} width="100%" alt={monument.get("name")}/>
             </div>
-            <div style={{
-                backgroundColor: "#F3F4F5", 
-                zIndex: 5, 
-                borderRadius: '20px 20px 0px 0px', 
-                padding: '20px',
-                position: 'absolute',
-                top: photoUp ? '50%' : '85%',
-                width: 'calc(100% - 40px)',
-                bottom: 0,
-                overflow: 'auto'
+            <InfoBox style={{
+                top: photoUp ? '50%' : '85%'
             }}
             onClick={() => {setPhotoUp(!photoUp)}}
             >
@@ -33,8 +50,8 @@ const Learn = ({ monument }) => {
                 </div>
                 <br />
                 {monument.get("desc")}
-            </div>
-        </div>
+            </InfoBox>
+        </PageFit>
     )
 }
 
