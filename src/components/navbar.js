@@ -1,5 +1,6 @@
 import React from 'react';
 import {CameraFilled, SearchOutlined, StarFilled} from '@ant-design/icons'
+import { connect } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 
@@ -17,26 +18,34 @@ export const NavIcon = styled.div`
     align-items: center;
 `;
 
-function Navbar() {
+const Navbar = ({user}) => {
     let history = useNavigate();
-  return (
-    <div style={{padding: '10px', display: 'flex', width: 'calc(100% - 20px)', justifyContent: 'space-between'}}>
-        <NavIcon style={{borderRadius: '30px', width: '30%'}} onClick={() => {return history('/explore')}}>
-            <CameraFilled />&nbsp;Explore
-        </NavIcon>
-        <NavIcon onClick={() => {return history('/browse')}}>
-            <SearchOutlined />
-        </NavIcon>
-        <NavIcon onClick={() => {return history('/favorites')}}>
-            <StarFilled />
-        </NavIcon>
-        <NavIcon style={{backgroundColor: '#000'}} 
-            onClick={() => {return history('/profile')}}
-        >
-            M
-        </NavIcon>
-    </div>
-  );
+    return (
+        <div style={{padding: '10px', display: 'flex', width: 'calc(100% - 20px)', justifyContent: 'space-between'}}>
+            <NavIcon style={{borderRadius: '30px', width: '30%'}} onClick={() => {return history('/explore')}}>
+                <CameraFilled />&nbsp;Explore
+            </NavIcon>
+            <NavIcon onClick={() => {return history('/browse')}}>
+                <SearchOutlined />
+            </NavIcon>
+            <NavIcon onClick={() => {return history('/favorites')}}>
+                <StarFilled />
+            </NavIcon>
+            <NavIcon style={{backgroundColor: '#000'}} 
+                onClick={() => {return history('/profile')}}
+            >
+                {user.get("name").substring(0, 1).toUpperCase()}
+            </NavIcon>
+        </div>
+    );
 }
 
-export default Navbar;
+const mapStateToProps = state => ({
+    user: state.user.get("user")
+});
+
+const mapDispatchToProps = dispatch => ({
+    
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

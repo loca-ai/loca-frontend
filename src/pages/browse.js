@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import Navbar, {NavIcon} from '../components/navbar';
-import {SearchInput} from '../components/inputs'
-import {devLocations, devMonuments} from '../static/dev'
+import { useNavigate } from "react-router-dom";
+// import {SearchInput} from '../components/inputs'
+// import {devLocations} from '../static/dev'
+import {tryGetNearbyMonuments} from '../middleware/monuments';
+import {setRecognizedMonument} from '../store/monuments';
+import {EnvironmentFilled} from '@ant-design/icons';
 
 const backgroundColorPicker = (n) => {
     if (n % 3 === 0) {
@@ -14,71 +18,71 @@ const backgroundColorPicker = (n) => {
     }
 }
 
-class Browse extends React.Component {
-    state = {nearbyMonuments: [], latitude: 0, longitude: 0};
+const Browse = ({tryGetNearbyMonuments, setRecognizedMonument}) => {
+    const [location, setLocation] = useState(null);
+    const [nearbyMonuments, setNearbyMonuments] = useState([]);
+    let history = useNavigate();
 
-    componentDidMount() {
-        return this.init();
-    }
+    useEffect(() => {
 
-    init = async () => {
-        let lat;
-        let long;
-        await navigator.geolocation.getCurrentPosition(function(position) {
-            lat = position.coords.latitude
-            long = position.coords.longitude
+        async function getNearby() {
+            const m = await tryGetNearbyMonuments(location)
+            setNearbyMonuments(m)
+        }
+
+        navigator.geolocation.getCurrentPosition(function(position) {
+            setLocation(position)
         });
-        this.setState({latitude: lat, longitude: long})
-        return this.setState({"nearbyMonuments": devMonuments})
-    };
+        getNearby()
 
+    }, []);
 
-    render() {
-        return(
-            <div>
-                <Navbar></Navbar>
-                <h2 style={{padding: '0px 20px'}}>Near me</h2>
-                <div style={{padding: '5px 20px'}}>
-                    <SearchInput
-                        searchOptions={devLocations}
-                        id={'search-items'}
-                        value={""}
-                        placeholder={"Search..."}
-                        onSelect={() => {}}
-                    />
-                </div>
-                {this.state.nearbyMonuments.map((m, i) => {
-                    const bcolor = backgroundColorPicker(i)
-                    const button = backgroundColorPicker(i + 1)
-                    let fontcolor = "#000";
-                    if (bcolor === "#000") {
-                        fontcolor = "#fff"
-                    }
+    return(
+        <div>
+            <Navbar></Navbar>
+            <h2 style={{padding: '0px 20px'}}>Near me</h2>
+            <br />
+            {/* <div style={{padding: '5px 20px'}}>
+                <SearchInput
+                    searchOptions={devLocations}
+                    id={'search-items'}
+                    value={""}
+                    placeholder={"Search..."}
+                    onSelect={() => {}}
+                />
+            </div> */}
+            {nearbyMonuments.map((m, i) => {
+                const bcolor = backgroundColorPicker(i)
+                const button = backgroundColorPicker(i + 1)
+                let fontcolor = "#000";
+                if (bcolor === "#000") {
+                    fontcolor = "#fff"
+                }
 
-                    return(
-                        <div key={i}>
-                            <div style={{display: 'flex', backgroundColor: bcolor, padding: '20px', color: fontcolor}}>
-                                <img src={m.img} alt={m.name} width={'30%'}/>
-                                &nbsp;&nbsp;
-                                <div>
-                                    <h4>{m.name}</h4>
-                                    <p>{m.desc}</p>
-                                    <br />
-                                    
-                                </div>
-                                <NavIcon style={{backgroundColor: button, width: '30%', borderRadius: '30px', alignSelf: "flex-end"}}
-                                    onClick={async () => {}}
-                                >
-                                    View
-                                </NavIcon>
+                return(
+                    <div key={i}>
+                        <div style={{display: 'flex', backgroundColor: bcolor, padding: '15px', color: fontcolor, justifyContent: 'space-between'}}>
+                            <img src={m.img} alt={m.name} width={'30%'}/>
+                            &nbsp;&nbsp;
+                            <div>
+                                <h4>{m.name}</h4>
+                                <br />
+                                <p><EnvironmentFilled />&nbsp;{m.location}</p>
+                                <br />
+                                
                             </div>
-                            <br />
+                            <NavIcon style={{backgroundColor: button, width: '30%', borderRadius: '30px', alignSelf: "flex-end"}}
+                                onClick={() => {setRecognizedMonument(m);history('/learn')}}
+                            >
+                                View
+                            </NavIcon>
                         </div>
-                    )
-                })}
-            </div>
-        )
-    }
+                        <br />
+                    </div>
+                )
+            })}
+        </div>
+    )
 }
 
 const mapStateToProps = state => ({
@@ -86,7 +90,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    
+    setRecognizedMonument: (monument) => dispatch(setRecognizedMonument(monument)),
+    tryGetNearbyMonuments: (geolocation) => dispatch(tryGetNearbyMonuments(geolocation))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Browse);
